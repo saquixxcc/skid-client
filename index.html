@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Skid Client – Minecraft launcher</title>
+<meta name="description" content="Skid Client is a fast, clean Minecraft launcher. Pick a version, download it and play.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#000;
+  --white:#fff;
+  --grey:#8a8a8a;
+  --line:#262626;
+  --line-light:#e4e4e4;
+  --font:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--font);background:var(--black);color:var(--white);line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+
+/* nav */
+nav{position:sticky;top:0;z-index:10;background:rgba(0,0,0,.82);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-weight:800;font-size:20px;letter-spacing:-.02em;text-decoration:none}
+.nav-r{display:flex;align-items:center;gap:20px}
+.nav-r a.lnk{font-size:14px;color:var(--grey);text-decoration:none}
+.nav-r a.lnk:hover{color:var(--white)}
+.lang{display:flex;border:1px solid #3a3a3a;border-radius:999px;padding:3px}
+.lang button{font:inherit;font-size:13px;font-weight:600;background:none;border:0;color:var(--grey);padding:4px 12px;border-radius:999px;cursor:pointer}
+.lang button[aria-pressed="true"]{background:var(--white);color:var(--black)}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;gap:10px;font:inherit;font-weight:600;font-size:17px;text-decoration:none;padding:16px 30px;border-radius:999px;background:var(--white);color:var(--black);border:1px solid var(--white);transition:transform .15s,background .15s,color .15s}
+.btn:hover{transform:translateY(-2px)}
+.btn.ghost{background:transparent;color:var(--white);border-color:#4a4a4a}
+.btn.ghost:hover{border-color:var(--white)}
+.btn.dark{background:var(--black);color:var(--white);border-color:var(--black)}
+
+/* hero */
+.hero{padding:96px 0 0;text-align:center;overflow:hidden}
+.badge{display:inline-block;border:1px solid #3a3a3a;border-radius:999px;padding:5px 14px;font-size:13px;color:var(--grey);margin-bottom:28px}
+h1{font-size:clamp(64px,13vw,168px);font-weight:800;line-height:.9;letter-spacing:-.055em}
+.sub{max-width:520px;margin:28px auto 0;font-size:clamp(18px,2.2vw,22px);color:#b5b5b5}
+.cta{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:40px}
+.meta{margin-top:18px;font-size:13px;color:var(--grey)}
+.shot-hero{margin:72px auto 0;max-width:1060px;border:1px solid #333;border-bottom:0;border-radius:18px 18px 0 0;overflow:hidden;box-shadow:0 0 120px rgba(255,255,255,.09)}
+.shot-hero img{display:block;width:100%;height:auto}
+
+/* light section */
+.light{background:var(--white);color:var(--black)}
+.features{padding:120px 0}
+.features h2{font-size:clamp(36px,6vw,72px);font-weight:800;letter-spacing:-.04em;line-height:1;max-width:760px}
+.feat{display:grid;grid-template-columns:1fr 1.35fr;gap:56px;align-items:center;padding:72px 0;border-top:1px solid var(--line-light);margin-top:72px}
+.feat+.feat{margin-top:0}
+.feat.rev{grid-template-columns:1.35fr 1fr}
+.feat.rev .txt{order:2}
+.feat h3{font-size:clamp(28px,3.4vw,44px);font-weight:800;letter-spacing:-.03em;line-height:1.05}
+.feat p{margin-top:16px;color:#555;font-size:18px;max-width:460px}
+.feat ul{margin-top:22px;list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+.feat li{border:1px solid var(--black);border-radius:999px;padding:4px 14px;font-size:14px;font-weight:600}
+.shot{border:1px solid #cfcfcf;border-radius:14px;overflow:hidden;box-shadow:0 24px 60px rgba(0,0,0,.14);background:#fff}
+.shot img{display:block;width:100%;height:auto}
+
+/* final cta */
+.final{padding:140px 0;text-align:center}
+.final h2{font-size:clamp(44px,9vw,120px);font-weight:800;letter-spacing:-.05em;line-height:.95}
+.final p{margin:22px auto 0;max-width:460px;color:#b5b5b5;font-size:19px}
+.final .cta{margin-top:40px}
+
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--grey);font-size:14px}
+footer .wrap{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+
+@media (max-width:860px){
+  .feat,.feat.rev{grid-template-columns:1fr;gap:32px;padding:56px 0}
+  .feat.rev .txt{order:0}
+  .nav-r a.lnk{display:none}
+  .hero{padding-top:64px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap">
+    <a class="logo" href="#top">Skid Client</a>
+    <div class="nav-r">
+      <a class="lnk" href="#features" data-i18n="nav_features">Features</a>
+      <a class="lnk" href="#download" data-i18n="nav_download">Download</a>
+      <div class="lang" role="group" aria-label="Language">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="pl" aria-pressed="false">PL</button>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="wrap">
+    <span class="badge" data-i18n="badge">Alpha version</span>
+    <h1>Skid<br>Client</h1>
+    <p class="sub" data-i18n="hero_sub">A clean Minecraft launcher. Pick a version, download it and play.</p>
+    <div class="cta">
+      <a class="btn" href="Skid-Launcher-Setup.exe" download>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+        <span data-i18n="btn_download">Download for Windows</span>
+      </a>
+      <a class="btn ghost" href="#features" data-i18n="btn_more">See what's inside</a>
+    </div>
+    <p class="meta" data-i18n="meta">Skid-Launcher-Setup.exe · Windows installer</p>
+    <div class="shot-hero">
+      <img src="assets/home.png" alt="Skid Client home screen with the Play button" width="1547" height="980">
+    </div>
+  </div>
+</header>
+
+<main class="light" id="features">
+  <div class="wrap features">
+    <h2 data-i18n="feat_title">Everything you need to launch. Nothing you don't.</h2>
+
+    <section class="feat">
+      <div class="txt">
+        <h3 data-i18n="f1_t">One click to play</h3>
+        <p data-i18n="f1_p">Add a version, press Download, then Play. Java and game files are downloaded automatically, so there is nothing to set up by hand.</p>
+        <ul><li>Vanilla</li><li>Java</li><li data-i18n="f1_tag">Auto-download</li></ul>
+      </div>
+      <div class="shot"><img src="assets/home.png" alt="Home screen: Minecraft 1.21.11 ready to play" loading="lazy"></div>
+    </section>
+
+    <section class="feat rev">
+      <div class="txt">
+        <h3 data-i18n="f2_t">Mods built in</h3>
+        <p data-i18n="f2_p">Search Modrinth without leaving the launcher. Filter by Fabric, Forge, NeoForge or Quilt and install straight into the version you choose.</p>
+        <ul><li>Modrinth</li><li>Fabric</li><li>Forge</li><li>NeoForge</li><li>Quilt</li></ul>
+      </div>
+      <div class="shot"><img src="assets/mods.png" alt="Mods page listing Fabric API, Sodium and Iris Shaders" loading="lazy"></div>
+    </section>
+
+    <section class="feat">
+      <div class="txt">
+        <h3 data-i18n="f3_t">Your account, your way</h3>
+        <p data-i18n="f3_p">Sign in with Microsoft to play on your original account with your own skin, or add an offline account with any nickname. The launcher never sees your password.</p>
+        <ul><li>Microsoft</li><li>Offline</li></ul>
+      </div>
+      <div class="shot"><img src="assets/accounts.png" alt="Accounts page with Microsoft sign-in and offline account" loading="lazy"></div>
+    </section>
+  </div>
+</main>
+
+<section class="final" id="download">
+  <div class="wrap">
+    <h2 data-i18n="final_t">Ready to play?</h2>
+    <p data-i18n="final_p">Download the installer, sign in and launch Minecraft in a few minutes.</p>
+    <div class="cta">
+      <a class="btn" href="Skid-Launcher-Setup.exe" download>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 21h16"/></svg>
+        <span data-i18n="btn_download">Download for Windows</span>
+      </a>
+    </div>
+    <p class="meta" data-i18n="alpha_note">Skid Client is in alpha. Expect rough edges.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Skid Client</span>
+    <span data-i18n="foot">Not affiliated with Mojang or Microsoft.</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var T={
+    en:{
+      nav_features:"Features",nav_download:"Download",badge:"Alpha version",
+      hero_sub:"A clean Minecraft launcher. Pick a version, download it and play.",
+      btn_download:"Download for Windows",btn_more:"See what's inside",
+      meta:"Skid-Launcher-Setup.exe · Windows installer",
+      feat_title:"Everything you need to launch. Nothing you don't.",
+      f1_t:"One click to play",
+      f1_p:"Add a version, press Download, then Play. Java and game files are downloaded automatically, so there is nothing to set up by hand.",
+      f1_tag:"Auto-download",
+      f2_t:"Mods built in",
+      f2_p:"Search Modrinth without leaving the launcher. Filter by Fabric, Forge, NeoForge or Quilt and install straight into the version you choose.",
+      f3_t:"Your account, your way",
+      f3_p:"Sign in with Microsoft to play on your original account with your own skin, or add an offline account with any nickname. The launcher never sees your password.",
+      final_t:"Ready to play?",
+      final_p:"Download the installer, sign in and launch Minecraft in a few minutes.",
+      alpha_note:"Skid Client is in alpha. Expect rough edges.",
+      foot:"Not affiliated with Mojang or Microsoft."
+    },
+    pl:{
+      nav_features:"Funkcje",nav_download:"Pobierz",badge:"Wersja alpha",
+      hero_sub:"Przejrzysty launcher do Minecrafta. Wybierz wersję, pobierz ją i graj.",
+      btn_download:"Pobierz na Windows",btn_more:"Zobacz, co w środku",
+      meta:"Skid-Launcher-Setup.exe · Instalator dla Windows",
+      feat_title:"Wszystko, czego potrzebujesz do gry. Nic więcej.",
+      f1_t:"Jedno kliknięcie i grasz",
+      f1_p:"Dodaj wersję, kliknij Pobierz, potem Graj. Java i pliki gry pobierają się automatycznie, więc nie musisz niczego konfigurować ręcznie.",
+      f1_tag:"Automatyczne pobieranie",
+      f2_t:"Mody w środku",
+      f2_p:"Przeszukuj Modrinth bez wychodzenia z launchera. Filtruj po Fabric, Forge, NeoForge lub Quilt i instaluj prosto do wybranej wersji.",
+      f3_t:"Twoje konto, po twojemu",
+      f3_p:"Zaloguj się przez Microsoft, aby grać na oryginalnym koncie z własnym skinem, albo dodaj konto offline z dowolnym nickiem. Launcher nigdy nie widzi twojego hasła.",
+      final_t:"Gotowy do gry?",
+      final_p:"Pobierz instalator, zaloguj się i uruchom Minecrafta w kilka minut.",
+      alpha_note:"Skid Client jest w wersji alpha. Mogą zdarzać się błędy.",
+      foot:"Brak powiązania z Mojang ani Microsoft."
+    }
+  };
+  var alts={
+    en:["Skid Client home screen with the Play button","Home screen: Minecraft 1.21.11 ready to play","Mods page listing Fabric API, Sodium and Iris Shaders","Accounts page with Microsoft sign-in and offline account"],
+    pl:["Ekran główny Skid Client z przyciskiem Graj","Ekran główny: Minecraft 1.21.11 gotowy do gry","Strona modów z Fabric API, Sodium i Iris Shaders","Strona kont z logowaniem Microsoft i kontem offline"]
+  };
+  var titles={en:"Skid Client – Minecraft launcher",pl:"Skid Client – launcher do Minecrafta"};
+
+  function apply(lang){
+    document.documentElement.lang=lang;
+    document.title=titles[lang];
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var v=T[lang][el.getAttribute('data-i18n')];
+      if(v!==undefined)el.textContent=v;
+    });
+    document.querySelectorAll('img').forEach(function(img,i){if(alts[lang][i])img.alt=alts[lang][i];});
+    document.querySelectorAll('.lang button').forEach(function(b){
+      b.setAttribute('aria-pressed',b.dataset.lang===lang?'true':'false');
+    });
+  }
+
+  var saved='en';
+  try{var s=localStorage.getItem('skid-lang');if(s==='en'||s==='pl')saved=s;}catch(e){}
+  apply(saved);
+
+  document.querySelectorAll('.lang button').forEach(function(b){
+    b.addEventListener('click',function(){
+      apply(b.dataset.lang);
+      try{localStorage.setItem('skid-lang',b.dataset.lang);}catch(e){}
+    });
+  });
+})();
+</script>
+</body>
+</html>
